@@ -1,31 +1,27 @@
-import React, { useState } from "react";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import MovieRow from "./components/MovieRow";
-import Modal from "./components/Modal";
-import moviesData from "./data/movies";
+// src/App.jsx
+import React from 'react';
+import './index.css';               // global styles
 
-export default function App() {
-  const [selected, setSelected] = useState(null);
+// Components
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';         // make sure this file exists and matches capitalization
+import MovieCard from './components/MovieCard';
 
-  const heroMovie = moviesData[0];
-  const popular = moviesData.slice(0, 3);
-  const trending = moviesData.slice(2);
+// Data
+import movies from './movies';
 
+function App() {
   return (
-    <div className="app">
+    <div>
       <Navbar />
-      <Hero movie={heroMovie} />
-      <main className="container">
-        <MovieRow title="Popular on Cloneflix" movies={popular} onSelect={setSelected} />
-        <MovieRow title="Trending Now" movies={trending} onSelect={setSelected} />
-      </main>
-
-      <Modal movie={selected} onClose={() => setSelected(null)} />
-
-      <footer className="footer">
-        <p>Built with ❤️ — Netflix clone (frontend only)</p>
-      </footer>
+      <Hero />
+      <div className="movies-list">
+        {movies.map((movie) => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))}
+      </div>
     </div>
   );
 }
+
+export default App;
